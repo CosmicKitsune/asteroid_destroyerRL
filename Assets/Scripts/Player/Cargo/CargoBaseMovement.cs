@@ -1,13 +1,16 @@
 using NavMeshPlus.Components;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 
 public class CargoBaseMovement : MonoBehaviour
 {
+    // main issue, getting negative velocity somehow :/ probably just cap it MinVel and MaxVel
+
     [SerializeField] float rotSpeed = 5f;
-    [SerializeField] float hoverDistance = 10f;
     [SerializeField] public Transform target;
+    [SerializeField] public NavMeshSurface surface;
 
     private Rigidbody2D rb;
     private NavMeshAgent agent;
@@ -22,7 +25,7 @@ public class CargoBaseMovement : MonoBehaviour
 
     void Update()
     {
-        agent.SetDestination(target.position); 
+        agent.SetDestination(target.position);
     }
 
     private void FixedUpdate()
@@ -33,5 +36,12 @@ public class CargoBaseMovement : MonoBehaviour
         float desiredAngle = Mathf.MoveTowardsAngle(rb.rotation, rb.rotation + angle - 90f, rotSpeed * Time.deltaTime); //angle that moves towards the target position
 
         rb.MoveRotation(desiredAngle);
+
+        float dist = Vector2.Distance(rb.position, target.position);
+
+        if (dist >= 10f) //refresh the navmesh automatically if the agent is too far from the player, alongside updating it every 30 seconds
+        {                //this should prevent the cargo ship from just veering away from the player upon collisions
+            RefreshNavmesh.Refresh(surface);
+        }
     }
 }

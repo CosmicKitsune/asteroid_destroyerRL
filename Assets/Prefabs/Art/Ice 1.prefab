@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4588723935818238227}
   - component: {fileID: 3015020178227365592}
+  - component: {fileID: 2924648923850659533}
   m_Layer: 0
   m_Name: Ice 1
   m_TagString: Untagged
@@ -87,3 +88,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2924648923850659533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7154406494778590262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c5df7b8a3e23744b3148665ae57eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asteroidPrefab: {fileID: -5616282715326407054, guid: c462d95180486f844afd65eb293c681d, type: 3}
+  spawnRate: 1
+  spawnDistance: 13
+  trajectoryVariance: 15
+  spawnAmount: 40

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using NavMeshPlus.Components;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Tilemaps;
 
 public class WalkerGenerator : MonoBehaviour
@@ -26,7 +27,6 @@ public class WalkerGenerator : MonoBehaviour
     public int TileCount = default;
     public float FillPercentage = 0.4f;
     public float WaitTime = 0.05f;
-    public CargoBaseMovement cargoShip;
     public NavMeshSurface navSurface;
 
     private Vector3 cellSize;
@@ -36,7 +36,7 @@ public class WalkerGenerator : MonoBehaviour
     {
         cellSize = tileMap.layoutGrid.cellSize;
         InitializeGrid();
-        InvokeRepeating(nameof(RefreshNavMesh), 30.0f, 30.0f);
+        InvokeRepeating(nameof(Refresh), 30.0f, 30.0f);
     }
 
     void InitializeGrid()
@@ -111,7 +111,7 @@ public class WalkerGenerator : MonoBehaviour
         }
         else
         {
-            Debug.Log($"Prefab {Decorations[choice]}");
+            //Debug.Log($"Prefab {Decorations[choice]}");
             lastDeco = Decorations[choice].name;
             return Decorations[choice];
         }
@@ -274,11 +274,12 @@ public class WalkerGenerator : MonoBehaviour
             }
         }
 
-        RefreshNavMesh();
+        RefreshNavmesh.Build(navSurface);
     }
 
-    public void RefreshNavMesh()
+    void Refresh()
     {
-        navSurface.BuildNavMeshAsync();
+        Debug.Log("Refreshing Navmesh");
+        RefreshNavmesh.Refresh(navSurface);
     }
 }

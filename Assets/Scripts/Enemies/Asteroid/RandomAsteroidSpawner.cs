@@ -1,40 +1,31 @@
-using System.Collections.Generic;
-using NUnit.Framework;
 using UnityEngine;
 
-public class AsteroidSpawner : MonoBehaviour
+public class RandomAsteroidSpawner : MonoBehaviour
 {
     [SerializeField] public Asteroid asteroidPrefab;
     [SerializeField] public float spawnRate = 2.0f;
-    [SerializeField] public float spawnDistance = 10.0f;
+    [SerializeField] public float spawnDistance = 15.0f;
     [SerializeField] public float trajectoryVariance = 15.0f;
     [SerializeField] public int spawnAmount = 1;
 
-    private List<Asteroid> asteroids = new List<Asteroid>();
-
     private void Start()
     {
-        //InvokeRepeating(nameof(Spawn), spawnRate, spawnRate);
-        spawnAmount = Random.Range(spawnAmount / 2, spawnAmount * 2);
-        Spawn();
+        InvokeRepeating(nameof(Spawn), spawnRate, spawnRate);
     }
 
     private void Spawn()
     {
         for (int i = 0; i < spawnAmount; i++)
         {
-            float randomSpawnDist = Random.Range(spawnDistance - 1, spawnDistance + 1);
-            Vector3 spawnDirection = Random.insideUnitCircle.normalized * randomSpawnDist;
+            Vector3 spawnDirection = Random.insideUnitCircle.normalized * spawnDistance;
             Vector3 spawnPoint = transform.position + spawnDirection;
 
             float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
             Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
 
             Asteroid asteroid = Instantiate(asteroidPrefab, spawnPoint, rotation);
-            asteroid.isBelt = true;
             asteroid.size = Random.Range(asteroid.minSize, asteroid.maxSize);
-            asteroid.target = gameObject;
-            asteroids.Add(asteroid);
+            asteroid.SetTrajectory(rotation * -spawnDirection);
         }
     }
 }

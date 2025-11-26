@@ -7,13 +7,18 @@ public class Asteroid : MonoBehaviour
     [SerializeField] public float minSize = 0.5f;
     [SerializeField] public float maxSize = 1.5f;
     [SerializeField] public float speed = 50.0f;
+    [SerializeField] public float orbitSpeed = 1.0f;
     [SerializeField] public float maxLifetme = 30.0f;
+
+    public bool isBelt = false;
+    public GameObject target;
 
     private SpriteRenderer sr;
     private Rigidbody2D rb;
 
     private void Awake()
     {
+        orbitSpeed = Random.Range(orbitSpeed, orbitSpeed * 2f);
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -33,5 +38,29 @@ public class Asteroid : MonoBehaviour
         rb.AddForce(direction * speed);
 
         Destroy(gameObject, maxLifetme);
+    }
+
+    public void RotateTrajectory(GameObject target)
+    {
+        transform.RotateAround(target.transform.position, Vector3.forward, orbitSpeed * Time.deltaTime);
+    }
+
+    private void Update()
+    {
+        if(isBelt)
+        {
+            RotateTrajectory(target);
+        } else
+        {
+            Debug.Log("Not orbiting");
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
