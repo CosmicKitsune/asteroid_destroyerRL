@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
 
     [Header("Health Settings")]
-    [SerializeField] float hp = 10f;
+    [SerializeField] public float hp = 10f;
 
     [Header("Movement Settings")]
     [SerializeField] float moveSpeed = 5f;
@@ -124,6 +124,7 @@ public class Player : MonoBehaviour
         {
             rb.angularVelocity = 0;
             gameObject.SetActive(false);
+            GameManager.instance.PlayerDied();
         }
     }
 
@@ -136,7 +137,6 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Asteroid"))
         {
             TakeDamage(1.0f);
-
         }
     }
 }
