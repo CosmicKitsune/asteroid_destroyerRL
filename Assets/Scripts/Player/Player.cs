@@ -2,11 +2,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SimpleMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
     private PlayerInput _playerInput;
     private Vector2 moveInput, turnInput, moveDirection;
     private Rigidbody2D rb;
+
+    [Header("Health Settings")]
+    [SerializeField] float hp = 10f;
 
     [Header("Movement Settings")]
     [SerializeField] float moveSpeed = 5f;
@@ -112,11 +115,28 @@ public class SimpleMovement : MonoBehaviour
         canShoot = true;
     }
 
+    private void TakeDamage(float dmg)
+    {
+        hp -= dmg;
+        Debug.Log($"Hp: {hp}");
+
+        if (hp <= 0)
+        {
+            rb.angularVelocity = 0;
+            gameObject.SetActive(false);
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("DrivableSpace"))
         {
             Debug.Log("Driving on tile");
+        }
+        if (collision.gameObject.CompareTag("Asteroid"))
+        {
+            TakeDamage(1.0f);
+
         }
     }
 }

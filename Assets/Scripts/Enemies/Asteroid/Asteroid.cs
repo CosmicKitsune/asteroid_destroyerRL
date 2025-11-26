@@ -9,6 +9,7 @@ public class Asteroid : MonoBehaviour
     [SerializeField] public float speed = 50.0f;
     [SerializeField] public float orbitSpeed = 1.0f;
     [SerializeField] public float maxLifetme = 30.0f;
+    [SerializeField] public int splitCount = 2;
 
     public bool isBelt = false;
     public GameObject target;
@@ -61,6 +62,29 @@ public class Asteroid : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            if ((size * 0.8f) >= minSize / 2)
+            {
+                CreateSplit(splitCount);
+            }
+
+            Destroy(gameObject);
+        }
+    }
+
+    private void CreateSplit(int splitCount)
+    {
+        for (int i = 0; i < splitCount; i++)
+        {
+            Vector2 position = transform.position;
+            position += Random.insideUnitCircle * 0.5f;
+
+            Asteroid half = Instantiate(this, position, Quaternion.identity);
+            half.size = size / 2;
+            half.SetTrajectory(Random.insideUnitCircle.normalized);
         }
     }
 }

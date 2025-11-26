@@ -35,6 +35,7 @@ public class WalkerGenerator : MonoBehaviour
     void Start()
     {
         cellSize = tileMap.layoutGrid.cellSize;
+        navSurface.hideEditorLogs = true;
         InitializeGrid();
         InvokeRepeating(nameof(Refresh), 30.0f, 30.0f);
     }
