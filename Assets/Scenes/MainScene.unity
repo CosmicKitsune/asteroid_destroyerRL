@@ -953,7 +953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectRadius: 10
-  bullet: {fileID: 0}
+  bullet: {fileID: 1226175515158120431, guid: 1a449b02431ce7e42aaf59c5f15ea892, type: 3}
 --- !u!1 &832316051
 GameObject:
   m_ObjectHideFlags: 0
