@@ -1,35 +1,50 @@
+using System.Collections;
 using UnityEngine;
 
 public class SmartTurret : Turret
 {
-    Vector2 direction;
+    private Vector2 direction;
+    private Vector2 lastDirection;
 
     // Update is called once per frame
     protected override void DetectTarget()    
     {
-        //Vector2 targetPos = target.position;
-
-        //direction = targetPos - (Vector2)transform.position;
-
         target = GetClosestTarget();
+
         if (target != null)
         {
-            Debug.Log($"Fire at {target.name} at {target.transform.position}");
-            Fire();
+            detected = true;
+
+            Vector2 targetPos = target.transform.position;
+
+            direction = targetPos - (Vector2)transform.position;
+
+            if (canShoot)
+            {
+                Fire();
+                StartCoroutine(FireCooldown());
+            }
         }
         else
         {
-            Debug.Log($"No current closest target");
+            detected = false;
         }
 
-        //RaycastHit2D rayInfo = Physics2D.Raycast(transform.position, , detectRadius); //direction
+        if (detected)
+        {
+            transform.up = direction;
+        } else
+        {
+            transform.up = lastDirection;
+        }
 
+        lastDirection = direction;
     }
 
     protected override void Fire()
     {
         Bullet firedBullet = Instantiate(bullet, transform.position, transform.rotation);
-        firedBullet.Project(transform.up);
+        firedBullet.Project(direction);
     }
 
     private GameObject GetClosestTarget()
@@ -52,7 +67,7 @@ public class SmartTurret : Turret
                     shortestDistance = dist;
                     closest = hit.collider.gameObject;
                 }
-            }
+            } 
         }
 
         return closest;
@@ -61,5 +76,11 @@ public class SmartTurret : Turret
     private void OnDrawGizmosSelected() // visualise 2D raycast
     {
         Gizmos.DrawWireSphere(transform.position, detectRadius);
+    }
+    private IEnumerator FireCooldown()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(shootCooldown);
+        canShoot = true;
     }
 }
