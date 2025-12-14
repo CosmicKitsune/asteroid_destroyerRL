@@ -92,7 +92,7 @@ public class Player : MonoBehaviour
     private void Fire()
     {
         Bullet firedBullet = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
-        firedBullet.Project(transform.up);
+        firedBullet.Project(transform.up, 1);
     }
 
     private IEnumerator Dash() // kudos to BMo for code

@@ -12,15 +12,22 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Project(Vector2 direction)
+    public void Project(Vector2 direction, float modifier)
     {
-        rb.AddForce(direction * speed);
+        rb.AddForce(direction * (speed * modifier));
         StartCoroutine(DeleteBullet());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(this.gameObject);
+        if (collision.CompareTag(gameObject.tag))
+        {
+            return;
+        } else
+        {
+            Destroy(this.gameObject);
+        }
+            
     }
 
     private IEnumerator DeleteBullet() // deletes the bullet

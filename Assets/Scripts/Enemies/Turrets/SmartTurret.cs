@@ -44,7 +44,7 @@ public class SmartTurret : Turret
     protected override void Fire()
     {
         Bullet firedBullet = Instantiate(bullet, transform.position, transform.rotation);
-        firedBullet.Project(direction);
+        firedBullet.Project(direction, 0.8f);
     }
 
     private GameObject GetClosestTarget()
