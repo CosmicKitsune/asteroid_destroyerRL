@@ -128,13 +128,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("DrivableSpace"))
-        {
-            Debug.Log("Driving on tile");
-        }
-        if (collision.gameObject.CompareTag("Asteroid"))
+        //if (collision.gameObject.CompareTag("DrivableSpace"))
+        //{
+        //    Debug.Log("Driving on tile");
+        //}
+        if (collision.gameObject.CompareTag("Asteroid") || collision.gameObject.CompareTag("EnemyBullet"));
         {
             TakeDamage(1.0f);
         }

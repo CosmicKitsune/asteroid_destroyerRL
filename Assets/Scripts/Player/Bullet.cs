@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(gameObject.tag))
+        if (this.gameObject.CompareTag("Bullet") && collision.gameObject.CompareTag("EnemyBullet") || this.gameObject.CompareTag("EnemyBullet") && collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag(this.gameObject.tag))
         {
             return;
         } else

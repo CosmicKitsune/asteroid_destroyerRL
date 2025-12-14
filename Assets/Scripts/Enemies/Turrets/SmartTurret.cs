@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SmartTurret : Turret
 {
+    [SerializeField] float bulSpd;
     private Vector2 direction;
     private Vector2 lastDirection;
 
@@ -44,7 +45,7 @@ public class SmartTurret : Turret
     protected override void Fire()
     {
         Bullet firedBullet = Instantiate(bullet, transform.position, transform.rotation);
-        firedBullet.Project(direction, 0.8f);
+        firedBullet.Project(direction, bulSpd);
     }
 
     private GameObject GetClosestTarget()

@@ -271,8 +271,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectRadius: 7
-  shootCooldown: 3
+  shootCooldown: 2
   bullet: {fileID: 1226175515158120431, guid: 1a449b02431ce7e42aaf59c5f15ea892, type: 3}
+  bulSpd: 0.3
 --- !u!208 &223872448
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1195,8 +1196,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectRadius: 7
-  shootCooldown: 3
+  shootCooldown: 2
   bullet: {fileID: 1226175515158120431, guid: 1a449b02431ce7e42aaf59c5f15ea892, type: 3}
+  bulSpd: 0.3
 --- !u!1 &832316051
 GameObject:
   m_ObjectHideFlags: 0
@@ -7162,7 +7164,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 8d5f697c999643441bb417d834c597de, type: 3}
   m_Color: {r: 0.6, g: 1, b: 0.98039216, a: 1}
   m_FlipX: 0
