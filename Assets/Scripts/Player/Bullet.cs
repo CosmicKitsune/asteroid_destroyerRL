@@ -33,6 +33,7 @@ public class Bullet : MonoBehaviour
     private IEnumerator DeleteBullet() // deletes the bullet
     {
         yield return new WaitForSeconds(life_time);
-        Destroy(this.gameObject);
+        ObjectPooler.EnqueueObject(this, "Bullet");
+        //Destroy(this.gameObject);
     }
 }

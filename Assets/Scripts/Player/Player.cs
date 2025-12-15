@@ -1,4 +1,5 @@
 using System.Collections;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -91,8 +92,14 @@ public class Player : MonoBehaviour
 
     private void Fire()
     {
-        Bullet firedBullet = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
-        firedBullet.Project(transform.up, 1);
+        Bullet instance = ObjectPooler.DequeueObject<Bullet> ("Bullet");
+        instance.gameObject.SetActive(true);
+        instance.transform.position = bulletSpawn.position;
+        instance.Project(transform.up, 1);
+        Debug.Log($"Bullet speed {instance.speed}");
+
+        //Bullet firedBullet = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
+        //firedBullet.Project(transform.up, 1);
     }
 
     private IEnumerator Dash() // kudos to BMo for code
