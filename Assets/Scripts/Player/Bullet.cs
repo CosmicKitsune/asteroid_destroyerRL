@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D rb;
     public float speed = 500.0f;
     public float life_time = 10f;
+    public float dmg = 1f;
 
     private void Awake()
     {
@@ -20,12 +21,15 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (this.gameObject.CompareTag("Bullet") && collision.gameObject.CompareTag("EnemyBullet") || this.gameObject.CompareTag("EnemyBullet") && collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag(this.gameObject.tag))
+        IDamageable damageable = collision.GetComponent<IDamageable>();
+
+        if (damageable != null)
         {
-            return;
-        } else
+            damageable.TakeDamage(1);
+            ObjectPooler.EnqueueObject(this, "Bullet");
+        } else if (collision.CompareTag("Asteroid"))
         {
-            Destroy(this.gameObject);
+            ObjectPooler.EnqueueObject(this, "Bullet");
         }
             
     }
@@ -34,6 +38,5 @@ public class Bullet : MonoBehaviour
     {
         yield return new WaitForSeconds(life_time);
         ObjectPooler.EnqueueObject(this, "Bullet");
-        //Destroy(this.gameObject);
     }
 }

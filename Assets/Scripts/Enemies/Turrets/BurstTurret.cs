@@ -93,6 +93,16 @@ public class BurstTurret : Turret
         Gizmos.DrawWireSphere(transform.position, detectRadius);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        IDamageable damageable = collision.GetComponent<IDamageable>();
+
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Bullet"))
+        {
+            
+        }
+    }
+
     private IEnumerator FireCooldown()
     {
         canShoot = false;

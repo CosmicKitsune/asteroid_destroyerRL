@@ -3,7 +3,7 @@ using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     private PlayerInput _playerInput;
     private Vector2 moveInput, turnInput, moveDirection;
@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     [Header("Bullet Settings")]
     [SerializeField] Transform bulletSpawn; // fix this later, maybe place into a separate script, might mess up when it comes to respawning player
     [SerializeField] Bullet bullet;
-    [SerializeField] float shootCooldown = 1f;
+    [SerializeField] public float shootCooldown = 1f;
     private bool canShoot;
 
     private void Start()
@@ -96,7 +96,6 @@ public class Player : MonoBehaviour
         instance.gameObject.SetActive(true);
         instance.transform.position = bulletSpawn.position;
         instance.Project(transform.up, 1);
-        Debug.Log($"Bullet speed {instance.speed}");
 
         //Bullet firedBullet = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
         //firedBullet.Project(transform.up, 1);
@@ -115,6 +114,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
+
     private IEnumerator FireCooldown()
     {
         canShoot = false;
@@ -122,19 +122,19 @@ public class Player : MonoBehaviour
         canShoot = true;
     }
 
-    private void TakeDamage(float dmg)
+    public void TakeDamage(float dmg)
     {
         hp -= dmg;
-        Debug.Log($"Hp: {hp}");
+        //Debug.Log($"Hp: {hp}");
 
         if (hp <= 0)
-        {
+        { 
+            Debug.Log("Player Dead");
             rb.angularVelocity = 0;
             gameObject.SetActive(false);
             GameManager.instance.PlayerDied();
         }
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -142,9 +142,9 @@ public class Player : MonoBehaviour
         //{
         //    Debug.Log("Driving on tile");
         //}
-        if (collision.gameObject.CompareTag("Asteroid") || collision.gameObject.CompareTag("EnemyBullet"));
+        /*if (collision.gameObject.CompareTag("Asteroid") || collision.gameObject.CompareTag("EnemyBullet"));
         {
             TakeDamage(1.0f);
-        }
+        }*/
     }
 }
