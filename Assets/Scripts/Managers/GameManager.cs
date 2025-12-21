@@ -6,6 +6,8 @@ public class GameManager : Singleton<GameManager>
     public GameObject cargoShip;
     public Bullet bulletPrefab;
     public Bullet enemyPrefab;
+    public int playerPool;
+    public int enemyPool;
 
     [SerializeField] float playRespawnTime;
 
@@ -17,8 +19,8 @@ public class GameManager : Singleton<GameManager>
 
     private void SetupPool()
     {
-        ObjectPooler.SetupPool(bulletPrefab, 10, "Bullet");
-        //ObjectPooler.SetupPool(bulletPrefab, 10, "EnemyBullet");
+        ObjectPooler.SetupPool(bulletPrefab, playerPool, "Bullet");
+        ObjectPooler.SetupPool(enemyPrefab, enemyPool, "EnemyBullet");
     }
 
     public void PlayerDied()

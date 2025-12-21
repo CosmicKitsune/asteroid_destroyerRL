@@ -48,9 +48,7 @@ public class Player : MonoBehaviour, IDamageable
 
     private void OnDisable()
     {
-        {
-            _playerInput.Player.Disable();
-        }
+        _playerInput.Player.Disable();
     }
 
     private void FixedUpdate()
@@ -92,7 +90,7 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Fire()
     {
-        Bullet instance = ObjectPooler.DequeueObject<Bullet> ("Bullet");
+        Bullet instance = ObjectPooler.DequeueObject<Bullet>("Bullet");
         instance.gameObject.SetActive(true);
         instance.transform.position = bulletSpawn.position;
         instance.Project(transform.up, 1);
@@ -138,13 +136,9 @@ public class Player : MonoBehaviour, IDamageable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //if (collision.gameObject.CompareTag("DrivableSpace"))
-        //{
-        //    Debug.Log("Driving on tile");
-        //}
-        /*if (collision.gameObject.CompareTag("Asteroid") || collision.gameObject.CompareTag("EnemyBullet"));
+        if (collision.gameObject.CompareTag("DrivableSpace"))
         {
-            TakeDamage(1.0f);
-        }*/
+            Debug.Log($"Driving on tile {collision.gameObject}");
+        }
     }
 }

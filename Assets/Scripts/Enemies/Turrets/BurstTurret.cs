@@ -8,6 +8,7 @@ public class BurstTurret : Turret
 {
     [SerializeField] public float maxBurst;
     [SerializeField] public float burstCooldown;
+    [SerializeField] public float bulSpd;
 
     private float burstCount;
     private List<Vector2> directions = new List<Vector2>();
@@ -43,8 +44,11 @@ public class BurstTurret : Turret
     {
         foreach (Vector2 d in directions)
         {
-            Bullet firedBullet = Instantiate(bullet, transform.position + new Vector3(d.x, d.y, 0), transform.rotation);
-            firedBullet.Project(d, 0.5f);
+            Bullet instance = ObjectPooler.DequeueObject<Bullet>("EnemyBullet");
+            instance.gameObject.SetActive(true);
+            instance.transform.position = transform.position;
+            //Bullet firedBullet = Instantiate(bullet, transform.position + new Vector3(d.x, d.y, 0), transform.rotation);
+            instance.Project(d, bulSpd);
         }
     }
 

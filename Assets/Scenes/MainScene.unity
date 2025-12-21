@@ -152,6 +152,8 @@ MonoBehaviour:
   cargoShip: {fileID: 1006823240}
   bulletPrefab: {fileID: 1226175515158120431, guid: fd61b5b3743fb214d94bb061c645c481, type: 3}
   enemyPrefab: {fileID: 1226175515158120431, guid: 1a449b02431ce7e42aaf59c5f15ea892, type: 3}
+  playerPool: 10
+  enemyPool: 100
   playRespawnTime: 3
 --- !u!4 &98667886
 Transform:
@@ -5788,7 +5790,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!195 &1006823241
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6296,7 +6298,11 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 0
@@ -6307,27 +6313,27 @@ Tilemap:
       e00: 2.35e-43
       e01: 0
       e02: 1e-45
-      e03: -4.7500076
+      e03: 4.7500076
       e10: 0
       e11: 0
       e12: 0
-      e13: 4.62e-43
-      e20: 2.089347e-39
-      e21: -4.7500076
-      e22: -1.6173493e+29
-      e23: 3.1146216e-27
-      e30: 4.5911e-41
-      e31: 4.62e-43
-      e32: 4.65e-43
-      e33: 4.64e-43
+      e13: 6.95e-43
+      e20: -0.00000007485551
+      e21: 4.7500076
+      e22: -2.5837795e-29
+      e23: -5.8368883e-19
+      e30: 4.591e-41
+      e31: 6.95e-43
+      e32: 6.98e-43
+      e33: 6.95e-43
   m_TileColorArray:
   - m_RefCount: 0
-    m_Data: {r: 6.6808e-41, g: 6.6808e-41, b: 6.6808e-41, a: 6.6808e-41}
+    m_Data: {r: 6.692e-41, g: 6.692e-41, b: 6.692e-41, a: 6.692e-41}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: 5, y: 4, z: 0}
-  m_Size: {x: 4, y: 4, z: 1}
+  m_Origin: {x: 2, y: 4, z: 0}
+  m_Size: {x: 7, y: 4, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -6406,7 +6412,7 @@ TilemapCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_CompositeOperation: 1
+  m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
@@ -6442,7 +6448,7 @@ CompositeCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -6450,9 +6456,7 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 1128756774}
-    m_ColliderPaths: []
+  m_ColliderPaths: []
   m_CompositePaths:
     m_Paths: []
   m_VertexDistance: 0.0005
